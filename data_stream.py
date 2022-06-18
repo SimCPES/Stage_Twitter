@@ -1,13 +1,15 @@
+"""Programme réalisant l'enregistrement de tweets en lien avec l'élection présidentielle grâce à du streaming avec filtrage"""
+
 import tweepy
 import json
 from datetime import datetime
 import os
 
-# Ce sont les clés et token permettant une connexion sécurisée avec Twitter
-consumer_key = "h26UAl7zpKaMJ5piXbtehf22h"
-consumer_secret = "nU6MWLKINOyG5Y8AB7WbPvqGALGlaIS3exUifznUcLMxWrJ0x7"
-access_token = "1488139829430861824-CruqdxzeOzlFolksOirn7Ph6GTLkwD"
-access_token_secret = "brLgPYChrV5hOAEuMgbMBGTNKm47MUnAC2ARcoVqmr8gT"
+# Ce sont les clés et token permettant une connexion sécurisée avec Twitter, elles ne doivent pas être partagées
+consumer_key = "h****h"
+consumer_secret = "n****7"
+access_token = "1****D"
+access_token_secret = "b****T"
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
