@@ -1,3 +1,5 @@
+"""Programme réalisant l'étiquetage des tweets selon la procédure décrite dans le rapport de stage"""
+
 import json
 import csv
 from unidecode import unidecode
