@@ -1,3 +1,5 @@
+"""Programme réalisant l'entrainement d'un classifieur de tweets à partir des données d'entrainement stockées dans le fichier text_tweets_100000.json"""
+
 import naya
 import json
 import nltk
@@ -20,7 +22,7 @@ for line in open("./comptes.txt"):
     comptes.append(f"@{line[:-1].lower()}")
 
 # On charge les données à utiliser : les textes de 100 000 tweets
-with open("./text_tweets_100000_t3.json") as f:
+with open("./text_tweets_100000.json") as f:
     tweets = json.load(f)
 
 # On crée l'ensemble contenant les stopwords et la fonction permettant de les retirer
