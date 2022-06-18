@@ -1,3 +1,5 @@
+"""Programme permettant de récupérer les textes des tweets pour diminuer la quantité de données à manipuler"""
+
 import json
 import naya
 import gzip
