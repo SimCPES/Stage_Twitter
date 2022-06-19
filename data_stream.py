@@ -1,6 +1,6 @@
 """Programme réalisant l'enregistrement de tweets en lien avec l'élection présidentielle grâce à du streaming avec filtrage"""
 
-import tweepy
+import tweepy  # Module tweepy pour utiliser l'API Twitter
 import json
 from datetime import datetime
 import os
@@ -11,21 +11,26 @@ consumer_secret = "n****7"
 access_token = "1****D"
 access_token_secret = "b****T"
 
+# Fonctions permettant de se connecter de manière sécurisée en utilisant les clés de sécurité personnelles
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 
-# On initialise l'API avec les clés de sécurité
+# On initialise l'API avec les clés de sécurité ce qui crée une connexion sécurisée avec Twitter
 api = tweepy.API(auth)
 
 class IDPrinter(tweepy.Stream):
+    """Classe permettant de gérer les tweets retournés par le streamer"""
 
     def on_status(self, status):
-        if os.path.exists(f"./tweets/tweets_{datetime.today().strftime('%d-%m-%Y')}.json"):
+        """Méthode permettant de manipuler les tweets retournés par le streamer"""
+        # On ajoute le tweet au fichier du jour. Si c'est le premier tweet enregistré de la journée on crée le fichier du jour
+        # et on l'ajoute
+        if os.path.exists(f"./tweets/tweets_{datetime.today().strftime('%d-%m-%Y')}.json"): # Si le fichier du jour existe
             with open(f"./tweets/tweets_{datetime.today().strftime('%d-%m-%Y')}.json", mode="a") as f:
                 tweet = json.dumps(status._json) # On récupère le tweet sous forme d'un dictionnaire
                 # On met ce dictionnaire au bon format avec json puis on l'écrit dans le fichier
                 f.write(tweet)
-                f.write(", ") # Les tweets sont séparés par des virgules
+                f.write(", ") # Dans un fichier, les tweets sont séparés par des virgules
         else:
             # Si aucun tweet n'a encore été enregistré pour cette journée on crée le fichier
             with open(f"./tweets/tweets_{datetime.today().strftime('%d-%m-%Y')}.json", mode="x") as f:
@@ -62,13 +67,16 @@ printer = IDPrinter(
   access_token, access_token_secret
 )
 
-
+# On récupère les comptes et mots-clés utilisés pour le filtrage en utilisant les fonctions ci-dessus
 dic = set_candidates()
 keywords = set_keywords()
 
+# Le streamer tourne en continu jusqu'à être arrêté 
 try:
+    # 'follow' correspond au filtre par compte
+    # 'track' correspond au filtre par mots-clés
     printer.filter(follow=dic.values(), track=keywords, languages=["fr"])
-except KeyboardInterrupt:
+except KeyboardInterrupt: # Pour interrompre le programme proprement
     print("Fin")
     quit()
 
