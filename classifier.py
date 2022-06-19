@@ -8,11 +8,12 @@ import pandas as pd
 import numpy as np
 import string
 from unidecode import unidecode
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.decomposition import TruncatedSVD
+from sklearn.feature_extraction.text import TfidfVectorizer  # Cette fonction permet de calculer la matrice des scores TF-IDF
+from sklearn.decomposition import TruncatedSVD  # Cette fonction permet de réaliser la réduction de dimension (PCA)
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier  # Le classifieur utilisé est un classifieur Random Forest
 
+# On réutilise la fonction de traitement du texte contenue dans le fichier NLP.py !
 # On charge le modèle Spacy
 nlp = spacy.load("fr_core_news_md")
 
@@ -58,11 +59,11 @@ def preprocess_tweet(tweet):
     return text
 
 # On crée les objets calculant la matrice des scores TF-IDF et réalisant la réduction de dimension
-tf_idf = TfidfVectorizer(tokenizer=preprocess_tweet)
+tf_idf = TfidfVectorizer(tokenizer=preprocess_tweet)  # On initialise avec la fonction de traitement du texte, elle sera appliquée sur chaque tweet avant de calculer les scores
 PCA = TruncatedSVD(n_components=100) # On souhaite conserver 100 colonnes sur la matrice finale
 forest = RandomForestClassifier() # On crée le classifieur
 
-# On calcule la représentation numérique des données en calculant les scores TF-IDF et en appliquant la PCA
+# On obtient la représentation numérique des données en calculant les scores TF-IDF et en appliquant la PCA
 X = PCA.fit_transform(tf_idf.fit_transform(tweets))
 # On récupère les étiquettes correspondantes stockées dans le fichier "tweets.csv"
 y = np.genfromtxt("tweets.csv", delimiter=",")
