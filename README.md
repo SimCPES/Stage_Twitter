@@ -5,5 +5,4 @@ Les annexes de mon rapport de stage correspondent aux fichiers suivants :
   - Annexe 2 : closer.sh
   - Annexe 3 : NLP.py
   - Annexe 4 : classifieur.py
-  - Annexe 5 : get_texts.py
-  - Annexe 6 : etiquetage.py
+  - Annexe 5 : etiquetage.py
